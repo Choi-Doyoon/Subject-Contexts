@@ -1,4 +1,4 @@
-package OOP;
+package OOP.javabasic;
 
 public class BlickTest {
     public static void main(String[] args){
