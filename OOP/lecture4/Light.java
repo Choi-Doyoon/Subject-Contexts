@@ -1,4 +1,4 @@
-//정수 타입 예제
+//정수 타입 예제(byte, short ,int ,long)
 public class Light{
     public static void main(String[] args){
         int lightspeed;
