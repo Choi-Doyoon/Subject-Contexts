@@ -1,4 +1,4 @@
-package OOP.javabasic;
+package OOP.lecture2.javabasic;
 
 public class ForTest {
     public static void main(String[] args){

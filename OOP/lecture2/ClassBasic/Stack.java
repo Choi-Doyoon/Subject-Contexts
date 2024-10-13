@@ -1,4 +1,4 @@
-package OOP.ClassBasic;
+package OOP.lecture2.ClassBasic;
 
 public class Stack {
     public int [] stck=new int[10];

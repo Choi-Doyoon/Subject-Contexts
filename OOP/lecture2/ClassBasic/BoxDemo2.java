@@ -1,4 +1,4 @@
-package OOP.ClassBasic;
+package OOP.lecture2.ClassBasic;
 
 public class BoxDemo2 {
     public static void main(String[] args){

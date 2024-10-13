@@ -1,4 +1,4 @@
-package OOP.ClassBasic;
+package OOP.lecture2.ClassBasic;
 
 public class Box3 {
     public double width;

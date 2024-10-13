@@ -1,5 +1,5 @@
 //인스턴스 변수 선언
-package OOP.ClassBasic;
+package OOP.lecture2.ClassBasic;
 
 public class Box{
     public double width;

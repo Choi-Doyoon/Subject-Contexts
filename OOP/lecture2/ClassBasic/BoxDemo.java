@@ -1,4 +1,4 @@
-package OOP.ClassBasic;
+package OOP.lecture2.ClassBasic;
 /* -오브젝트 생성-
  * new 키워드 사용
  */

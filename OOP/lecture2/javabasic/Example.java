@@ -1,4 +1,4 @@
-package OOP.javabasic;
+package OOP.lecture2.javabasic;
 /*
  * This is a simple Java program.
  * Call this file "Example.java".
