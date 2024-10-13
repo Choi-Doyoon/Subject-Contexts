@@ -1,6 +1,6 @@
 package OOP.javabasic;
 
-public class BlickTest {
+public class BlockTest {
     public static void main(String[] args){
         int x,y;
         y=20;
