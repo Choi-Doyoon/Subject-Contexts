@@ -41,6 +41,42 @@ namespace DB{
 
         }
 
+        bool erase_one(const value_type& target)
+		{
+			size_type index = 0;
+			while ((index < used) && (data[index] != target))
+			{
+				++index;
+			}
+			if (index == used)
+			{
+				return false;
+			}
+			--used;
+			data[index] = data[used];
+			return true;
+		}
+        
+		size_type erase(const value_type& target)
+		{
+			size_type index = 0;
+			size_type many_removed = 0;
+			while (index < used)
+			{
+				if (data[index] == target)
+				{
+					--used;
+					data[index] = data[used];
+					++many_removed;
+				}
+				else
+				{
+					++index;
+				}
+				return many_removed;
+			}
+		}
+
         void reserve(size_type new_capacity){
             value_type *larger_array;
             if(new_capacity==capacity){return;}
@@ -67,7 +103,7 @@ namespace DB{
 		{
 			return used;
 		}
-        
+
 		size_type count(const value_type& target) const
 		{
 			size_type answer;
