@@ -1,4 +1,4 @@
-package OOP.lecture7.인터페이스;
+package OOP.lecture8.인터페이스;
 
 public interface IntStack {
     default int[] popNElements(int n){

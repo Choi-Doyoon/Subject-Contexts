@@ -1,4 +1,4 @@
-package OOP.lecture7.인터페이스;
+package OOP.lecture8.인터페이스;
 
 public class B implements A.NestedIf {
     public boolean isNotNegative(int x){

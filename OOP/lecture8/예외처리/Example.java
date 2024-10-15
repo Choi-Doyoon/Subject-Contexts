@@ -1,4 +1,4 @@
-package OOP.lecture7.예외처리;
+package OOP.lecture8.예외처리;
 
 public class Example {
     public static void main(String[] args){
