@@ -7,7 +7,7 @@ public class ListDemo{
 
         List<String> animals2=Arrays.asList(animals1); //배열->리스트
         animals2.set(1,"Parrot");
-
+        
         for(String s:animals2){
             System.out.println(s+",");
         }
