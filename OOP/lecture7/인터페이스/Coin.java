@@ -1,4 +1,4 @@
-package OOP.lecture7;
+package OOP.lecture7.인터페이스;
 
 public interface Coin {
     //상수 필드 정의

@@ -1,4 +1,4 @@
-package OOP.lecture7;
+package OOP.lecture7.인터페이스;
 
 public class Area {
     public static void main(String[] args){
