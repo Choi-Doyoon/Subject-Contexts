@@ -1,7 +1,9 @@
+#include<algorithm>
+#include<cassert>
 #include<iostream>
-#include "bag.h"
+#include<cstdlib>
+#include"bag.h"
 using namespace std;
-using namespace BAG;
 
 void check_ages(bag& ages)
 {
