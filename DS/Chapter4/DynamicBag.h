@@ -104,7 +104,7 @@ namespace DB{
 			return used;
 		}
 
-		size_type count(const value_type& target) const
+		size_type count(const value_type& target)
 		{
 			size_type answer;
 			size_type i;
