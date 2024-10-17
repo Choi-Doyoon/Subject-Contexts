@@ -8,9 +8,8 @@ public class Example {
                 System.out.println("a: "+a);   
             } catch(ArithmeticException e){
                 System.out.println("Division by zero.");
-                
             }
-             
+            System.out.println("This will be printed.");
         }
     }
 }
