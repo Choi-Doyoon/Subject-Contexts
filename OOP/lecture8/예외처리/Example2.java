@@ -7,6 +7,7 @@ public class Example2 {
             int b=42/a;
             int[] c={1};
             c[42]=99;
+            System.out.println(b);
         } catch(ArithmeticException e){
             System.out.println("Divide by 0: "+e);
         } catch(ArrayIndexOutOfBoundsException e){

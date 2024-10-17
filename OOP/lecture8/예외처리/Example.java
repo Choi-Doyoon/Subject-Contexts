@@ -5,10 +5,12 @@ public class Example {
         for(int i=0;i<10;i++){
             try{
                 int a=12345/i;
+                System.out.println("a: "+a);   
             } catch(ArithmeticException e){
                 System.out.println("Division by zero.");
+                
             }
-            System.out.println("a: "+a);    
+             
         }
     }
 }

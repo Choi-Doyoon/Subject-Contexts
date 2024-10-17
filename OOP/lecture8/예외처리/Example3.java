@@ -5,6 +5,7 @@ public class Example3 {
         try{
             int a=0;
             int b=42/a;
+            System.out.println(b);
         } catch (ArithmeticException e){
             System.out.println("Caught");
         } finally{
