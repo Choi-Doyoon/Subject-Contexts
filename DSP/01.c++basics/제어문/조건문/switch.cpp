@@ -2,7 +2,7 @@
 using namespace std;
 
 int main(){
-    int grade;
+    char grade;
     cin>>grade;
 
     switch(grade){
@@ -16,3 +16,17 @@ int main(){
             cout<<"Keep trying"<<endl;
     }
 }
+
+/*
+  switch(조건 변수 혹은 조건식){
+    case 상수식1:
+        실행문1;
+        break;
+    case 상수식2:
+        실행문2;
+        break;
+    default:
+        실행문3;
+        break;
+  }
+*/
