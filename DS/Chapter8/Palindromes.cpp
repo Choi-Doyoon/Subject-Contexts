@@ -8,7 +8,8 @@ int main(){
     queue<char> q;
     stack<char> s;
     char letter;
-    int mismatches=0;
+    queue<char>::size_type mismatches=0;
+    cout<<"Enter a line and I will see if it's a palindrome: "<<endl;
 
     while(cin.peek()!='\n'){
         cin>>letter;
@@ -20,7 +21,7 @@ int main(){
 
     while((!q.empty()) && (!s.empty())){
         if(q.front()!=s.top()){
-            mismatches++;
+            ++mismatches;
         }
         q.pop();
         s.pop();
