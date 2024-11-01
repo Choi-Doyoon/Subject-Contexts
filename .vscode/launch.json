@@ -3,6 +3,111 @@
   "configurations": [
     {
       "type": "java",
+      "name": "RegExpr9",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr9",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr8",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr8",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr7",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr7",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr6",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr6",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr5",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr5",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "EchoClient",
+      "request": "launch",
+      "mainClass": "OOP.lecture13.EchoClient",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "EchoServer",
+      "request": "launch",
+      "mainClass": "OOP.lecture13.EchoServer",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr4",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr4",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr3",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr3",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr2",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr2",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "RegExpr",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.정규표현식.RegExpr",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "Whois",
+      "request": "launch",
+      "mainClass": "OOP.lecture13.Whois",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "InetAddressTest",
+      "request": "launch",
+      "mainClass": "OOP.lecture13.InetAddressTest",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "LineChartExample",
+      "request": "launch",
+      "mainClass": "OOP.Teamproject.LineChartExample",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "LinkedListGraphExample",
+      "request": "launch",
+      "mainClass": "OOP.Teamproject.LinkedListGraphExample",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
       "name": "StringJoinDemo",
       "request": "launch",
       "mainClass": "OOP.lecture11.string.StringJoinDemo",
