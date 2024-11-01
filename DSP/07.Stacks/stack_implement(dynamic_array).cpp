@@ -54,7 +54,7 @@ public:
             }
         }
         else{
-            cout<<"스택이 비어있습니다. pop을 수행할 수 없습니다."<<endl;
+            cout<<"stack is empty. can't use pop()."<<endl;
         }
     }
 
@@ -63,7 +63,7 @@ public:
             return data[topIndex-1];
         }
         else{
-            cout<<"스택이 비어있습니다."<<endl;
+            cout<<"stack is empty."<<endl;
             return T();
         }
     }
@@ -77,9 +77,9 @@ public:
     }
 
     void swap(Stack& other){
-        swap(data, other.data);
-        swap(capacity, other.capacity);
-        swap(topIndex, other.topIndex);
+        std::swap(data, other.data);
+        std::swap(capacity, other.capacity);
+        std::swap(topIndex, other.topIndex);
     }
 };
 
@@ -93,21 +93,21 @@ int main(){
     stack2.push(10);
     stack2.push(20);
 
-    cout<<"교환 전: "<<endl;
-    cout<<"stack1의 촤상단 요소: "<<stack1.top()<<endl;
-    cout<<"stack2의 촤상단 요소: "<<stack2.top()<<endl;
+    cout<<"before swap: "<<endl;
+    cout<<"stack1's top element: "<<stack1.top()<<endl;
+    cout<<"stack2's top element': "<<stack2.top()<<endl;
 
     stack1.swap(stack2);
 
-    cout<<"\n swap 교환 후: "<<endl;
-    cout<<"stack1의 촤상단 요소: "<<stack1.top()<<endl;
-    cout<<"stack2의 촤상단 요소: "<<stack2.top()<<endl;
+    cout<<"\n after swap: "<<endl;
+    cout<<"stack1's top element: "<<stack1.top()<<endl;
+    cout<<"stack2's top element: "<<stack2.top()<<endl;
 
     stack1=stack2;
 
-    cout<<"\n 대입 연산자 오버로딩 후: "<<endl;
-    cout<<"stack1의 촤상단 요소: "<<stack1.top()<<endl;
-    cout<<"stack2의 촤상단 요소: "<<stack2.top()<<endl;
+    cout<<"\n after overloading: "<<endl;
+    cout<<"stack1's top element: "<<stack1.top()<<endl;
+    cout<<"stack2's top element: "<<stack2.top()<<endl;
 
     return 0;
 }

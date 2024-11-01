@@ -8,20 +8,48 @@ private:
     struct Node{
         T data;
         Node* next;
-        Node(const T& data, Node* next=nullptr): data(data), next(next){}
+        Node(const T& data, Node* next=nullptr) : data(data), next(next) {}
     };
 
     Node* topNode;
     int count;
+    
 public:
     //기본 생성자
     Stack(): topNode(nullptr), count(0){}
+
+    //복수 생성자
+    Stack(const Stack& other): topNode(nullptr), count(0){
+        if(other.topNode == nullptr){
+            return;
+        }
+
+        topNode = new Node(other.topNode->data);
+        Node* current = topNode;
+        Node* otherCurrent = other.topNode->next;
+
+        while(otherCurrent != nullptr){
+            current->next = new Node(otherCurrent->data);
+            current = current->next;
+            otherCurrent = otherCurrent->next;
+        }
+        count = other.count;
+    }
 
     //소멸자
     ~Stack(){
         while(!isEmpty()){
             pop();
         }
+    }
+
+    //대입 연산자 오버로딩
+    Stack& operator=(Stack other){
+        if(this != &other){
+            Stack temp(other);
+            swap(temp);
+        }
+        return *this;
     }
 
     void push(const T& item){
@@ -37,7 +65,7 @@ public:
             --count;
         }
         else{
-            cout<<"스택이 비어있습니다. pop을 수행할 수 없습니다."<<endl;
+            cout<<"stack is empty. can't use pop()."<<endl;
         }
     }
 
@@ -46,7 +74,7 @@ public:
             return topNode->data;
         }
         else{
-            cout<<"스택이 비어있습니다."<<endl;
+            cout<<"stack is empty."<<endl;
             return T();
         }
     }
@@ -71,14 +99,14 @@ int main(){
     stack1.push(20);
     stack1.push(30);
 
-    cout<<"스택의 크기: "<<stack1.size()<<endl;
-    cout<<"스택의 최상단 원소: "<<stack1.top()<<endl;
+    cout<<"stack1 size: "<<stack1.size()<<endl;
+    cout<<"stack1's top element: "<<stack1.top()<<endl;
 
     stack1.pop();
-    cout<<"pop() 호출 후 스택의 최상단 원소: "<<stack1.top()<<endl;
+    cout<<"stack1's top element after pop(): "<<stack1.top()<<endl;
 
     while(!stack1.isEmpty()){
-        cout<<"요소 제거: "<<stack1.top()<<endl;
+        cout<<"delete element: "<<stack1.top()<<endl;
         stack1.pop();
     }
 
