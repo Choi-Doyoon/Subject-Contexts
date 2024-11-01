@@ -27,4 +27,15 @@ string infixToPostfixFullyParenthesized(const string& expr){
         else{
             operations.push(c);
         }
+    }
+    return postfix;
+}
+
+int main(){
+    string expr = "((A+7)*(B/C))";
+    string postfix = infixToPostfixFullyParenthesized(expr);
+    cout<<"Infix: "<<expr<<endl;
+    cout<<"Postfix: "<<postfix<<endl;
+
+    return 0;
 }
