@@ -22,7 +22,7 @@ int evaluateExpression(const string& expr){
         if(expr[i]==' '){
             continue;
         }
-        else if(isdigit(expr[i])){
+        if(isdigit(expr[i])){
             int val= expr[i] - '0';
             numbers.push(val);
         }

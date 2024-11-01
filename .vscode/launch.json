@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/chams/OneDrive/바탕 화면/팡운대/Github/Subject-Contexts/DSP/07.Stacks",
-      "program": "c:/Users/chams/OneDrive/바탕 화면/팡운대/Github/Subject-Contexts/DSP/07.Stacks/build/Debug/outDebug",
+      "cwd": "c:/Users/chams/OneDrive/바탕 화면/팡운대/Github/Subject-Contexts/DSP/07.Stacks/stack 예제",
+      "program": "c:/Users/chams/OneDrive/바탕 화면/팡운대/Github/Subject-Contexts/DSP/07.Stacks/stack 예제/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
