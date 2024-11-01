@@ -2,6 +2,48 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "java",
+      "name": "StringJoinDemo",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.string.StringJoinDemo",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "StringReplace",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.string.StringReplace",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "SortString",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.string.SortString",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "equalsDemo",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.string.equalsDemo",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "getCharsDemo",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.string.getCharsDemo",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
+      "type": "java",
+      "name": "test",
+      "request": "launch",
+      "mainClass": "OOP.lecture11.string.test",
+      "projectName": "Subject-Contexts_65849ee0"
+    },
+    {
       "name": "C/C++ Runner: Debug Session",
       "type": "cppdbg",
       "request": "launch",
