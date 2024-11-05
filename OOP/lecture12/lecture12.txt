@@ -1,0 +1,21 @@
+1.입출력 스트림:
+InputStream과 OutputStream 클래스는 바이트 단위의 입출력을 처리하는 데 사용됩니다. FileInputStream, FileOutputStream 등 특정 파일과 연결된 스트림을 활용할 수 있습니다.
+Reader와 Writer는 문자 기반 입출력을 처리합니다. BufferedReader와 BufferedWriter를 이용하여 텍스트 파일을 효율적으로 다룰 수 있습니다.
+
+2.BufferedReader와 InputStreamReader:
+BufferedReader는 입력을 버퍼링해 읽는 성능을 높이며, readLine()을 사용해 한 줄씩 입력을 받을 수 있습니다.
+InputStreamReader는 InputStream을 문자 기반으로 변환할 때 사용되며, System.in과 함께 사용하여 콘솔 입력을 읽는 예제가 제공됩니다.
+
+3.파일 입출력 예제:
+FileInputStream과 FileOutputStream을 사용하여 파일을 읽고 쓰는 방법을 보여주는 예제(ShowFile.java, CopyFile.java)가 포함되어 있습니다.
+try-with-resources 문법을 사용하여 리소스를 자동으로 닫는 방식도 소개되었습니다.
+
+4.PrintWriter:
+PrintWriter는 print(), println()을 사용하여 출력하는데, System.out과 결합해 콘솔 출력 형식을 쉽게 제어할 수 있습니다.
+printf 메서드로 형식을 지정한 출력이 가능하며, format 지정을 통해 다양한 출력 형식을 지원합니다.
+
+5.DataInputStream과 DataOutputStream:
+기본 타입 데이터를 파일로 저장하고 다시 읽어들이는 데 유용하며, writeInt(), readInt() 같은 메서드를 사용해 데이터를 직렬화하고 역직렬화할 수 있습니다.
+
+6.File 클래스:
+File 클래스는 파일 및 디렉터리를 관리하는 데 사용되며, 파일의 속성(읽기 가능 여부, 경로, 크기 등)을 확인하는 메서드들이 있습니다. 디렉터리 목록을 출력하는 예제(DirList.java)도 포함되어 있습니다.
