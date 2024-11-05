@@ -1,0 +1,14 @@
+1.String 클래스:
+String은 불변 객체이며, length(), charAt(), indexOf(), substring() 등의 다양한 메서드가 제공됩니다.
+문자열 비교는 equals(), equalsIgnoreCase(), 그리고 사전 순 비교는 compareTo()를 통해 가능합니다.
+
+2.StringBuffer 클래스:
+StringBuffer는 가변 문자열을 다루는 데 사용됩니다. append(), insert(), delete(), reverse()와 같은 메서드로 문자열을 수정할 수 있습니다.
+StringBuffer는 멀티스레드 환경에서 안전하며, 변경 가능한 문자열을 생성하는 데 유용합니다.
+
+3.정규 표현식 (Regular Expressions):
+Pattern과 Matcher 클래스를 사용해 문자열에서 패턴을 검색하거나 부분 문자열을 추출할 수 있습니다.
+find(), matches(), replaceAll(), split() 등의 메서드를 통해 패턴 검색과 문자열 처리 작업을 쉽게 수행할 수 있습니다.
+
+
+예제 코드로 RegExpr, RegExpr2, RegExpr3 등이 포함되어 있어, 정규 표현식의 기본 사용법을 익힐 수 있습니다.
