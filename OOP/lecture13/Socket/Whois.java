@@ -1,4 +1,4 @@
-package OOP.lecture13;
+package OOP.lecture13.Socket;
 
 import java.net.*; //네트워크 프로그래밍
 import java.io.*; //I/O 스트림
