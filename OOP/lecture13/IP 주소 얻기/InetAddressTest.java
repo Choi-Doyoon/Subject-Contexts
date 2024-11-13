@@ -12,4 +12,4 @@ public class InetAddressTest{
         }
         //Naver의 모든 IP 주소 목록을 배열로 출력합니다. (예: www.naver.com/223.130.195.200, www.naver.com/223.130.200.107 등)
     }
-}   
+}

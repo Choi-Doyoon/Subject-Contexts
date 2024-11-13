@@ -165,51 +165,44 @@ bag<Item> operator +(const bag<Item>& b1, const bag<Item>& b2) {
 }
 
 int main() {
-    // bag<int> 객체 생성
     bag<int> bag1;
 
-    // 값 삽입
     bag1.insert(10);
     bag1.insert(20);
     bag1.insert(10);
     bag1.insert(30);
 
-    // 각 값의 개수 출력
     cout << "10의 개수: " << bag1.count(10) << endl;
     cout << "20의 개수: " << bag1.count(20) << endl;
     cout << "30의 개수: " << bag1.count(30) << endl;
 
-    // 전체 요소의 수 출력
-    cout << "bag1의 전체 크기: " << bag1.size() << endl;
+    cout << "bag1의 크기: " << bag1.size() << endl;
 
-    // 하나의 10을 제거
     if (bag1.erase_one(10)) {
-        cout << "10을 하나 제거했습니다." << endl;
+        cout << "10을 삭제했습니다." << endl;
     }
 
-    // 제거 후 10의 개수와 전체 크기 확인
-    cout << "10의 개수 (제거 후): " << bag1.count(10) << endl;
-    cout << "bag1의 전체 크기 (제거 후): " << bag1.size() << endl;
+    cout << "10의 개수(10 삭제 후): " << bag1.count(10) << endl;
+    cout << "bag1의 크기 (10 삭제 후): " << bag1.size() << endl;
 
-    // 모든 20 제거
     size_t removed_count = bag1.erase(20);
-    cout << "20을 " << removed_count << "개 제거했습니다." << endl;
+    cout << "20?? " << removed_count << "?? ??????????." << endl;
 
-    // 20의 개수와 전체 크기 확인
-    cout << "20의 개수 (제거 후): " << bag1.count(20) << endl;
-    cout << "bag1의 전체 크기 (제거 후): " << bag1.size() << endl;
+    // 20?? ?????? ??? ??? ???
+    cout << "20?? ???? (???? ??): " << bag1.count(20) << endl;
+    cout << "bag1?? ??? ??? (???? ??): " << bag1.size() << endl;
 
-    // bag 복사 및 덧셈 연산 테스트
-    bag<int> bag2(bag1);  // 복사 생성자 사용
+    // bag ???? ?? ???? ???? ????
+    bag<int> bag2(bag1);  // ???? ?????? ???
     bag2.insert(40);
 
-    bag<int> bag3 = bag1 + bag2;  // + 연산자 사용
+    bag<int> bag3 = bag1 + bag2;  // + ?????? ???
 
-    // bag3의 내용 확인
-    cout << "bag3의 전체 크기: " << bag3.size() << endl;
-    cout << "10의 개수 (bag3): " << bag3.count(10) << endl;
-    cout << "30의 개수 (bag3): " << bag3.count(30) << endl;
-    cout << "40의 개수 (bag3): " << bag3.count(40) << endl;
+    // bag3?? ???? ???
+    cout << "bag3?? ??? ???: " << bag3.size() << endl;
+    cout << "10?? ???? (bag3): " << bag3.count(10) << endl;
+    cout << "30?? ???? (bag3): " << bag3.count(30) << endl;
+    cout << "40?? ???? (bag3): " << bag3.count(40) << endl;
 
     return 0;
 }

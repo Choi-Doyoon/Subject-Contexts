@@ -1,0 +1,19 @@
+--2차 과제--
+Circular deque 구현하기
+
+Linked list, queue를 활용하여 Circular deque 구현하기
+Linked list 활용할 것
+템플릿을 사용하여 구현하여도 무방함
+STL의 list 사용 가능함
+STL에서 제공하는 Queue 사용 시 0점
+
+--필수 기능 구현--
+□ Push_front: deque의 앞 부분에 데이터 추가하기
+□ Push_back: deque의 뒤 부분에 데이터 추가하기
+□ Pop_front: deque의 앞 부분에서 데이터 제거하기
+□ Pop_back: deque의 뒤 부분에서 데이터 제거하기
+□ Display: deque 내의 모든 원소 출력하기
+□ Size: deque의 사이즈 출력하기
+□ IsEmpty: deque가 비워져 있는지 여부 확인하여 출력하기 (empty 확인은 head와 tail 포인터가
+같은 지 여부로 판단 해야함. 즉, head=tail일 경우 deque는 비워져 있음.)
+□ Deque 생성 시 head와 tail은 동일한 부분을 지시하고 있어야 함

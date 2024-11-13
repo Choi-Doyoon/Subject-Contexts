@@ -1,100 +1,70 @@
-#include <iostream>
-#include <stdexcept>
-#include <string>
+#include<iostream>
+#include<vector>
+#include<stack>
+#include<unordered_set>
+#include<list>
+#include<string>
 using namespace std;
 
-class Refrigerator {
-private:
-    string* ingredients;
-    int* quantities;
-    int capacity;
-    int size;
-
-    // ¹è¿­ Å©±â Á¶Á¤À» À§ÇÑ ¸Þ¼­µå
-    void resize(int newCapacity) {
-        string* newIngredients = new string[newCapacity];
-        int* newQuantities = new int[newCapacity];
-
-        for (int i = 0; i < size; ++i) {
-            newIngredients[i] = ingredients[i];
-            newQuantities[i] = quantities[i];
-        }
-        
-        delete[] ingredients;
-        delete[] quantities;
-
-        ingredients = newIngredients;
-        quantities = newQuantities;
-        capacity = newCapacity;
-    }
-
+class Food{
 public:
-    // »ç¿ëÀÚ ÀÔ·ÂÀ» ÅëÇØ ÃÊ±â ¿ë·® ¼³Á¤
-    Refrigerator(int initialCapacity) : capacity(initialCapacity), size(0) {
-        ingredients = new string[capacity];
-        quantities = new int[capacity];
-    }
-
-    ~Refrigerator() {
-        delete[] ingredients;
-        delete[] quantities;
-    }
-
-    void addIngredient(const string& name, int quantity) {
-        // ¿ë·® ÃÊ°ú ½Ã ¹è¿­ Å©±â Á¶Á¤
-        if (size == capacity) {
-            resize(capacity * 2);
-        }
-        ingredients[size] = name;
-        quantities[size] = quantity;
-        size++;
-    }
-
-    void removeIngredient() {
-        if (size > 0) {
-            --size;
-        } else {
-            throw out_of_range("Refrigerator is empty.");
-        }
-    }
-
-    int current_capacity() const { return capacity; }
-    int current_size() const { return size; }
-
-    void displayContents() const {
-        cout << "³ÃÀå°í ³»¿ë¹°:" << endl;
-        for (int i = 0; i < size; ++i) {
-            cout << "Àç·á¸í: " << ingredients[i] << ", ¼ö·®: " << quantities[i] << endl;
-        }
-        if(quantities[size]>capacity){
-            cout<<"³ÃÀå°í ¿ë·® ÃÊ°ú."<<endl;
-        }
+    string name; //ìž¬ë£Œì´ë¦„
+    int quantity; //ìž¬ë£Œ ì–‘
+    //ìƒì„±ìž
+    Food(const string& name, int quantity){
+        string name=name;
+        int quantity=quantity;
     }
 };
 
-int main() {
-    int initialCapacity;
-    cout << "³ÃÀå°í ¿ë·®À» ÀÔ·ÂÇÏ¼¼¿ä: ";
-    cin >> initialCapacity;
-
-    Refrigerator fridge(initialCapacity);
-
-    // »ç¿ëÀÚ°¡ Àç·á¸í°ú °³¼ö¸¦ ÀÔ·Â
-    while (true) {
-        string name;
-        int quantity;
-        cout << "Àç·á¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä (Á¾·áÇÏ·Á¸é 'exit' ÀÔ·Â): ";
-        cin >> name;
-        if (name == "exit") break;
-
-        cout << "¼ö·®À» ÀÔ·ÂÇÏ¼¼¿ä: ";
-        cin >> quantity;
-
-        fridge.addIngredient(name, quantity);
-
-        // ÇöÀç ³ÃÀå°í ³»¿ë Ãâ·Â
-        fridge.displayContents();
+class refrigerator{
+private:
+    int maxcapacity; //ëƒ‰ìž¥ê³  ìµœëŒ€ ìš©ëŸ‰
+    int currentcapacity; //ëƒ‰ìž¥ê³  í˜„ìž¬ ìš©ëŸ‰
+    list<Food> orders;
+    unordered_set<string> foodset;
+public:
+    //ìƒì„±ìž
+    refrigerator(int capacity){
+        int maxcapacity=capacity;
+        int currentcapacity=0; 
     }
 
-    return 0;
-}
+    bool addItem(const string& name,int quantity){
+        if(currentcapacity+quantity>maxcapacity){
+            cout<<"Not enough space for "<<name<<" ("<<quantity<<" units)\n";
+            return false;
+        }
+
+        if(foodset.find(name) == foodset.end()){
+            foodset.insert(name);
+        }
+
+        orders.push_back(Food(name, quantity));
+        currentcapacity += quantity;
+
+        displaycurrentstatus();
+
+        return true;
+    }
+
+    void displaycurrentstatus() const{
+        cout<<"Current capacity: "<<currentcapacity<<"/" << maxcapacity<<"\n";
+        cout<<"Items in the Refrigerator:\n";
+        for(const auto &Food : orders){
+            cout<<"- "<<Food.name<<": "<<Food.quantity<<" units\n";
+        }
+    }
+
+    void displayfinalorder(){ //ë§ˆì§€ë§‰ ê²°ê³¼ë¬¼ í™•ì¸
+        cout<<"\nFinal order summanry:\n";
+        list<Food> orderlist;
+        while(!orders.empty()){
+            orderlist.push_front(orders.back());
+            orders.pop_back();
+        }
+        for(const auto &Food: orderlist){
+            cout<<"- "<<Food.name<<": "<<Food.quantity<<" units\n";
+        }
+    }
+};

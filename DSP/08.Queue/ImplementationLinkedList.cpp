@@ -36,7 +36,7 @@ public:
             return frontNode->data;
         }
         else{
-            throw runtime_error("Å¥°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            throw runtime_error("Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
@@ -45,7 +45,7 @@ public:
             return rearNode->data;
         }
         else{
-            throw runtime_error("Äí°¡ ºñ¾î ÀÖ½À´Ï´Ù.");
+            throw runtime_error("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
@@ -72,7 +72,7 @@ public:
             }
         }
         else{
-            throw runtime_error("Äí°¡ ºñ¾î ÀÖ½À´Ï´Ù. popÀ» ¼öÇàÇÒ ¼ö ¾ø½À´Ï´Ù.");
+            throw runtime_error("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½. popï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
         }
     }
 
@@ -90,15 +90,15 @@ int main(){
     queue.push(20);
     queue.push(30);
 
-    cout<<"Å¥ÀÇ Å©±â: "<<queue.size()<<endl;
-    cout<<"Å¥ÀÇ °¡Àå ¾Õ ¿ä¼Ò: "<<queue.front()<<endl;
-    cout<<"Å¥ÀÇ °¡Àå µÚ ¿ä¼Ò: "<<queue.back()<<endl;
+    cout<<"Å¥ï¿½ï¿½ Å©ï¿½ï¿½: "<<queue.size()<<endl;
+    cout<<"Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½: "<<queue.front()<<endl;
+    cout<<"Å¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½: "<<queue.back()<<endl;
 
     queue.pop();
-    cout<<"pop() ½ÇÇà ÈÄ °¡Àå ¾Õ ¿ä¼Ò: "<<queue.front()<<endl;
+    cout<<"pop() ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½: "<<queue.front()<<endl;
 
     while(!queue.empty()){
-        cout<<"¿ä¼Ò Á¦°Å: "<<queue.front()<<endl;
+        cout<<"ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: "<<queue.front()<<endl;
         queue.pop();
     }
 
