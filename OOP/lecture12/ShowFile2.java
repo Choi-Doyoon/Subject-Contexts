@@ -15,6 +15,8 @@ public class ShowFile2 {
                 if(i!=-1) {System.out.print((char) i);}
             }while(i!=-1);
         }catch(FileNotFoundException e){
+            System.out.println("File Not Found");
+        }catch(IOException e){
             System.out.println("An I/O Error Occurred");
         }
     }
