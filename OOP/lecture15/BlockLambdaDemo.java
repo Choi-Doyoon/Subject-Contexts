@@ -1,5 +1,9 @@
 package OOP.lecture15;
 
+interface NumericFunc {
+    int func(int n);
+}
+
 public class BlockLambdaDemo {
     public static void main(String[] args) {
         NumericFunc factorial = (n) -> {
