@@ -2,6 +2,7 @@
 #include<vector>
 #include<algorithm>
 #include<queue>
+#include<cmath>
 using namespace std;
 
 template<typename T>
@@ -122,7 +123,7 @@ private:
                 left_sibling->children.pop_back();
             }
         }
-        else if(index<parent->dataset.size()&&parent->children[index+1]->dataset.size()>=cell(M/2.0f)){
+        else if(index<parent->dataset.size()&&parent->children[index+1]->dataset.size()>=ceil(M/2.0f)){
             BTreeNode<T>* right_sibling=parent->children[index+1];
             node->loose_insert(parent->dataset[index]);
             parent->dataset[index]=right_sibling->dataset[0];

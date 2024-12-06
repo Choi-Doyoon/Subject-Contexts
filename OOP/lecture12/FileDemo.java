@@ -6,7 +6,7 @@ public class FileDemo {
     }
 
     public static void main(String[] args){
-        File f1 = new File("/java/COPYRIGHT"); //File 생성자
+        File f1 = new File("C:\\Users\\chams\\OneDrive\\바탕 화면\\Github","test.txt"); //File 생성자
 
 
         p("File Name: " + f1.getName()); //파일 이름 반환
