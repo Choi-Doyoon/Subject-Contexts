@@ -318,7 +318,7 @@ public:
 };
 
 int main() {
-    Bag<int> bag(2);
+    Bag<int> bag(3);
     string command;
 
     cout << "Welcome to the Bag program. Available commands:" << endl;
