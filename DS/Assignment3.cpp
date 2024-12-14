@@ -3,6 +3,7 @@
 #include<algorithm>
 #include<queue>
 #include<cmath>
+#include<iomanip>
 using namespace std;
 
 template<typename T>
@@ -269,6 +270,35 @@ private:
         }
     }
 
+    void print_tree(Node* node, int space) {
+        if (!node) return;
+
+        // Increase distance between levels
+        int count = 5;
+        space += count;
+
+        // Print right children first
+        for (int i = node->children.size() - 1; i >= (int)node->dataset.size(); --i) {
+            print_tree(node->children[i], space);
+        }
+
+        // Print the current node's data
+        cout << endl;
+        for (int i = space; i > count; --i) {
+            cout << " ";
+        }
+        for (int i = node->dataset.size() - 1; i >= 0; --i) {
+            cout << node->dataset[i] << " "<<endl;
+        }
+
+        // Print left children
+        for (int i = (int)node->dataset.size() - 1; i >= 0; --i) {
+            if (i < (int)node->children.size()) {
+                print_tree(node->children[i], space);
+            }
+        }
+    }
+
 public:
     Bag(int maximum = 3) : M(maximum) {
         root_ptr = nullptr;
@@ -325,29 +355,7 @@ public:
             return;
         }
 
-        queue<Node*> node_queue;
-        node_queue.push(root_ptr);
-
-        while (!node_queue.empty()) {
-            int size = node_queue.size();
-            for (int i = 0; i < size; ++i) {
-                Node* current = node_queue.front();
-                node_queue.pop();
-
-                cout << "[ ";
-                for (const T& data : current->dataset) {
-                    cout << data << " ";
-                }
-                cout << "] ";
-
-                if (!current->is_leaf()) {
-                    for (Node* child : current->children) {
-                        node_queue.push(child);
-                    }
-                }
-            }
-            cout << endl;
-        }
+        print_tree(root_ptr, 0);
     }
 };
 
