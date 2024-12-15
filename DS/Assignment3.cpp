@@ -14,31 +14,25 @@ private:
         Node* parent;
         vector<Node*> children;
         vector<T> dataset;
-
         Node(Node* init_parent = nullptr) {
             parent = init_parent;
         }
-
         bool is_leaf() {
             return children.empty();
         }
-
         int count_data(const T& data) {
             return std::count(dataset.begin(), dataset.end(), data);
         }
-
         void loose_insert(T data) {
             dataset.push_back(data);
             sort(dataset.begin(), dataset.end());
         }
-
         void loose_erase(const T& data) {
             auto it = find(dataset.begin(), dataset.end(), data);
             if (it != dataset.end()) {
                 dataset.erase(it);
             }
         }
-
         int find_data_index(const T& data) {
             auto it = find(dataset.begin(), dataset.end(), data);
             if (it != dataset.end()) {
@@ -46,7 +40,6 @@ private:
             }
             return -1;
         }
-
         void merge_children(int index) {
             for (int i = 0; i < children[index + 1]->dataset.size(); i++) {
                 children[index]->dataset.push_back(children[index + 1]->dataset[i]);
@@ -58,7 +51,6 @@ private:
             }
             children.erase(children.begin() + index + 1);
         }
-
         Node* split_child(int index) {
             int mid = children[index]->dataset.size() / 2;
             loose_insert(children[index]->dataset[mid]);
@@ -84,14 +76,12 @@ private:
                     }
                 }
             }
-
             Node* temp = children[index];
             children[index] = right;
             children.insert(children.begin() + index, left);
             delete temp;
             return right->parent;
         }
-
         void print_data() {
             cout << "[ ";
             for (int i = 0; i < dataset.size(); i++) {
@@ -100,10 +90,8 @@ private:
             cout << "]";
         }
     };
-
     const int M;
     Node* root_ptr;
-
     void fix_excess(Node* node) {
         if (node->dataset.size() < M) {
             return;
@@ -120,7 +108,6 @@ private:
             fix_excess(node->parent->split_child(split_index));
         }
     }
-
     void fix_shortage(Node* node) {
         if (node == root_ptr && root_ptr->dataset.empty()) {
             // If root is empty and has children, make the first child the new root
@@ -132,7 +119,6 @@ private:
             }
             return;
         }
-
         Node* parent = node->parent;
         auto it = find(parent->children.begin(), parent->children.end(), node);
         int index = distance(parent->children.begin(), it);
@@ -209,32 +195,34 @@ private:
         return search_recursion(node->children.back(), data);
     }
     Node* find_insert_point(Node* node, T data) {
-        if (node->is_leaf()) {
-            return node;
-        }
-        if (data <= node->dataset[0]) {
+        if (node->is_leaf()) return node;  // Leaf 노드 도달 시 해당 노드 반환
+
+        // 중복된 값이 있는 경우, 왼쪽 자식으로 이동하도록 설정
+        if (data == node->dataset[0]) {
             return find_insert_point(node->children[0], data);
         }
+
+        if (data < node->dataset[0]) {
+            return find_insert_point(node->children[0], data);
+        }
+
         for (int i = 1; i < node->dataset.size(); ++i) {
-            if (node->dataset[i - 1] < data && data < node->dataset[i]) {
+            if (node->dataset[i - 1] <= data && data < node->dataset[i]) {
                 return find_insert_point(node->children[i], data);
             }
         }
-        return find_insert_point(node->children.back(), data);
+        return find_insert_point(node->children.back(), data);  // 마지막 자식으로 이동
     }
-
     void loose_insert(Node* node, T data) {
         node->dataset.push_back(data);
         sort(node->dataset.begin(), node->dataset.end());
     }
-
     void loose_erase(Node* node, T data) {
         auto it = find(node->dataset.begin(), node->dataset.end(), data);
         if (it != node->dataset.end()) {
             node->dataset.erase(it);
         }
     }
-
     void remove_biggest(Node* node, T& data) {
         if (node->is_leaf()) {
             data = node->dataset.back();
@@ -244,32 +232,10 @@ private:
             remove_biggest(node->children.back(), data);
         }
     }
-
-    void print_tree(Node* node, int space) {
-        if (!node) return;
-        int count = 5;
-        space += count;
-        for (int i = node->children.size() - 1; i >= (int)node->dataset.size(); --i) {
-            print_tree(node->children[i], space);
-        }
-        cout << endl;
-        for (int i = space; i > count; --i) {
-            cout << " ";
-        }
-        for (int i = node->dataset.size() - 1; i >= 0; --i) {
-            cout << node->dataset[i] << " "<<endl;
-        }
-        for (int i = (int)node->dataset.size() - 1; i >= 0; --i) {
-            if (i < (int)node->children.size()) {
-                print_tree(node->children[i], space);
-            }
-        }
-    }
 public:
     Bag(int maximum = 3) : M(maximum) {
         root_ptr = nullptr;
     }
-
     int count(T data) {
         int total_count = 0;
         queue<Node*> q;
@@ -287,19 +253,16 @@ public:
         }
         return total_count;
     }
-
     void insert(T data) {
         if (root_ptr == nullptr) {
             root_ptr = new Node();
-            loose_insert(root_ptr, data);
-        }
-        else {
+            root_ptr->loose_insert(data);
+        } else {
             Node* insert_point = find_insert_point(root_ptr, data);
-            loose_insert(insert_point, data);
-            fix_excess(insert_point);
+            insert_point->loose_insert(data);
+            fix_excess(insert_point); 
         }
     }
-
     void erase_one(const T& data) {
         Node* target_node = search_for_data(root_ptr, data);
         if (!target_node) {
@@ -307,30 +270,52 @@ public:
         }
         target_node->loose_erase(data);
     }
-
     void show_contents() {
         if (!root_ptr) {
-            cout << "[ ]" << endl;
+            cout << "Tree is empty." << endl;
             return;
         }
-        print_tree(root_ptr, 0);
+        queue<pair<Node*, int>> q;
+        q.push({root_ptr, 0});
+        int current_level = 0;
+        vector<vector<string>> levels; 
+        levels.push_back({}); 
+        while (!q.empty()) {
+            Node* node = q.front().first;
+            int level = q.front().second;
+            q.pop();
+            if (level > current_level) {
+                levels.push_back({});
+                current_level = level;
+            }
+            for (T val : node->dataset) {
+                levels[current_level].push_back(to_string(val));
+            }
+            for (Node* child : node->children) {
+                q.push({child, level + 1});
+            }
+        }
+        for (int i = 0; i < levels.size(); ++i) {
+            int indent = (levels.size() - i) * 2; 
+            cout << string(indent, ' ');        
+            for (const string& val : levels[i]) {
+                cout << val << "   ";          
+            }
+            cout << endl;
+        }
     }
 };
-
 int main() {
     Bag<int> bag(3);
     string command;
-
     cout << "Welcome to the Bag program. Available commands:" << endl;
     cout << "  insert x - Inserts x into the bag" << endl;
     cout << "  erase x - Erases one occurrence of x from the bag" << endl;
     cout << "  count x - Counts the occurrences of x in the bag" << endl;
     cout << "  quit - Exits the program" << endl;
-
     while (true) {
         cout << "\nEnter command: ";
         cin >> command;
-
         if (command == "insert") {
             int x;
             cin >> x;
