@@ -1,70 +1,302 @@
-#include<iostream>
-#include<vector>
-#include<stack>
-#include<unordered_set>
-#include<list>
-#include<string>
+#include <iostream>
+#include <queue>
+#include <string>
+#include <memory>
+#include <fstream>
+#include <climits> 
+
 using namespace std;
 
-class Food{
-public:
-    string name; //ì¬ë£Œì´ë¦„
-    int quantity; //ì¬ë£Œ ì–‘
-    //ìƒì„±ì
-    Food(const string& name, int quantity){
-        string name=name;
-        int quantity=quantity;
-    }
+struct Material {
+    string name;
+    int quantity;
+    double price;
+    double spaceRequired;
 };
 
-class refrigerator{
+class Node {
+public:
+    Material material;
+    shared_ptr<Node> next;
+
+    Node(const Material& material) : material(material), next(nullptr) {}
+};
+
+class MaterialList {
 private:
-    int maxcapacity; //ëƒ‰ì¥ê³  ìµœëŒ€ ìš©ëŸ‰
-    int currentcapacity; //ëƒ‰ì¥ê³  í˜„ì¬ ìš©ëŸ‰
-    list<Food> orders;
-    unordered_set<string> foodset;
+    shared_ptr<Node> head;
+
 public:
-    //ìƒì„±ì
-    refrigerator(int capacity){
-        int maxcapacity=capacity;
-        int currentcapacity=0; 
-    }
+    MaterialList() : head(nullptr) {}
 
-    bool addItem(const string& name,int quantity){
-        if(currentcapacity+quantity>maxcapacity){
-            cout<<"Not enough space for "<<name<<" ("<<quantity<<" units)\n";
-            return false;
-        }
-
-        if(foodset.find(name) == foodset.end()){
-            foodset.insert(name);
-        }
-
-        orders.push_back(Food(name, quantity));
-        currentcapacity += quantity;
-
-        displaycurrentstatus();
-
-        return true;
-    }
-
-    void displaycurrentstatus() const{
-        cout<<"Current capacity: "<<currentcapacity<<"/" << maxcapacity<<"\n";
-        cout<<"Items in the Refrigerator:\n";
-        for(const auto &Food : orders){
-            cout<<"- "<<Food.name<<": "<<Food.quantity<<" units\n";
+    void addMaterial(const Material& material) {
+        auto newNode = make_shared<Node>(material);
+        if (!head) {
+            head = newNode;
+        } 
+        else {
+            auto current = head;
+            while (current->next) {
+                current = current->next;
+            }
+            current->next = newNode;
         }
     }
 
-    void displayfinalorder(){ //ë§ˆì§€ë§‰ ê²°ê³¼ë¬¼ í™•ì¸
-        cout<<"\nFinal order summanry:\n";
-        list<Food> orderlist;
-        while(!orders.empty()){
-            orderlist.push_front(orders.back());
-            orders.pop_back();
+    bool modifyMaterial(const string& name, double& totalCost, double& totalSpace) {
+        auto current = head;
+
+        while (current) {
+            if (current->material.name == name) {
+                cout << "¼öÁ¤ÇÒ Á¤º¸¸¦ ÀÔ·ÂÇÏ¼¼¿ä:\n";
+
+                int oldQuantity = current->material.quantity;
+                double oldPrice = current->material.price;
+                double oldSpaceRequired = current->material.spaceRequired;
+
+                totalCost -= oldQuantity * oldPrice;
+                totalSpace -= oldQuantity * oldSpaceRequired;
+
+                cout << "Àç·á °³¼ö (" << oldQuantity << "): ";
+                cin >> current->material.quantity;
+                cout << "Àç·á °³´ç °¡°İ (" << oldPrice << "): ";
+                cin >> current->material.price;
+                cout << "Àç·á 1°³´ç ³ÃÀå°í Â÷Áö °ø°£ (" << oldSpaceRequired << "): ";
+                cin >> current->material.spaceRequired;
+
+                totalCost += current->material.quantity * current->material.price;
+                totalSpace += current->material.quantity * current->material.spaceRequired;
+
+                cout << name << "ÀÇ Á¤º¸°¡ ¼º°øÀûÀ¸·Î ¼öÁ¤µÇ¾ú½À´Ï´Ù.\n";
+                return true;
+            }
+            current = current->next;
         }
-        for(const auto &Food: orderlist){
-            cout<<"- "<<Food.name<<": "<<Food.quantity<<" units\n";
+        return false;
+    }
+
+    bool deleteMaterial(const string& name, int deleteQuantity, Material& deletedMaterial) {
+        if (!head) return false;
+
+        auto current = head;
+        shared_ptr<Node> prev = nullptr;
+
+        while (current && current->material.name != name) {
+            prev = current;
+            current = current->next;
         }
+
+        if (current) {
+            if (deleteQuantity > current->material.quantity) {
+                deleteQuantity = current->material.quantity;
+            }
+
+            deletedMaterial = current->material;
+            deletedMaterial.quantity = deleteQuantity;
+            current->material.quantity -= deleteQuantity;
+
+            if (current->material.quantity == 0) {
+                if (prev) {
+                    prev->next = current->next;
+                } else {
+                    head = current->next;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    void displayMaterials(ostream& out = cout) {
+        auto current = head;
+
+        if (!head) {
+            out << "¹ßÁÖµÈ Àç·á°¡ ¾ø½À´Ï´Ù.\n";
+            return;
+        }
+
+        out << "=================================\n";
+        out << "ÇöÀç ¹ßÁÖµÈ Àç·á ¸ñ·Ï:\n";
+        out << "---------------------------------\n";
+        out << "Àç·á¸í\t\t°³¼ö\t°¡°İ(¿ø)\tÂ÷Áö °ø°£(´ÜÀ§)\n";
+        out << "---------------------------------\n";
+
+        while (current) {
+            out << current->material.name << "\t\t"
+                << current->material.quantity << "\t"
+                << current->material.price << "\t\t"
+                << current->material.spaceRequired << "\n";
+            current = current->next;
+        }
+        out << "=================================\n";
     }
 };
+
+class POS {
+private:
+    queue<Material> orderQueue;
+    MaterialList orderList;
+    double totalCost;
+    double totalSpace;
+    double refrigeratorCapacity;
+
+public:
+    POS() : totalCost(0), totalSpace(0), refrigeratorCapacity(0) {}
+
+    void setRefrigeratorCapacity() {
+        cout << "³ÃÀå°í ÃÑ ¿ë·®À» ÀÔ·ÂÇÏ¼¼¿ä (´ÜÀ§): ";
+        cin >> refrigeratorCapacity;
+        cout << "³ÃÀå°í ¿ë·®ÀÌ " << refrigeratorCapacity << " ´ÜÀ§·Î ¼³Á¤µÇ¾ú½À´Ï´Ù.\n";
+    }
+
+    void inputMaterial() {
+        Material material;
+        cout << "Àç·á¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä: ";
+        cin >> material.name;
+        cout << "Àç·á °³¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
+        cin >> material.quantity;
+        cout << "Àç·á °³´ç °¡°İÀ» ÀÔ·ÂÇÏ¼¼¿ä: ";
+        cin >> material.price;
+        cout << "Àç·á 1°³´ç ³ÃÀå°í Â÷Áö °ø°£À» ÀÔ·ÂÇÏ¼¼¿ä: ";
+        cin >> material.spaceRequired;
+
+        orderQueue.push(material);
+        cout << "Àç·á°¡ ¹ßÁÖ ´ë±â¿­¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù.\n";
+    }
+
+    void processOrders() {
+        while (!orderQueue.empty()) {
+            Material material = orderQueue.front();
+            double requiredSpace = material.quantity * material.spaceRequired;
+
+            if (totalSpace + requiredSpace > refrigeratorCapacity) {
+                cout << "°æ°í: ³ÃÀå°í ¿ë·®À» ÃÊ°úÇÏ¿© " << material.name << " Ãß°¡°¡ ºÒ°¡´ÉÇÕ´Ï´Ù.\n";
+                orderQueue.pop();
+                continue;
+            }
+
+            orderQueue.pop();
+            orderList.addMaterial(material);
+            totalCost += material.quantity * material.price;
+            totalSpace += requiredSpace;
+
+            cout << material.name << "ÀÌ(°¡) ¹ßÁÖ Ã³¸®µÇ¾ú½À´Ï´Ù.\n";
+        }
+        cout << "¸ğµç ¹ßÁÖ ´ë±â Àç·á°¡ °¡´ÉÇÑ ÇÑ ÃÖÁ¾ ¹ßÁÖ ¸ñ·Ï¿¡ Ãß°¡µÇ¾ú½À´Ï´Ù.\n";
+    }
+
+    void modifyMaterialInOrderList() {
+        string name;
+        cin >> name;
+
+        if (orderList.modifyMaterial(name, totalCost, totalSpace)) {
+            cout << "Àç·á Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.\n";
+        } 
+        else {
+            cout << "ÇØ´ç ÀÌ¸§ÀÇ Àç·á¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.\n";
+        }
+    }
+
+    void deleteMaterialFromOrderList() {
+        string name;
+        int deleteQuantity;
+        cout << "»èÁ¦ÇÒ Àç·á¸íÀ» ÀÔ·ÂÇÏ¼¼¿ä: ";
+        cin >> name;
+        cout << "»èÁ¦ÇÒ °³¼ö¸¦ ÀÔ·ÂÇÏ¼¼¿ä: ";
+        cin >> deleteQuantity;
+
+        Material deletedMaterial;
+        if (orderList.deleteMaterial(name, deleteQuantity, deletedMaterial)) {
+            totalCost -= deletedMaterial.quantity * deletedMaterial.price;
+            totalSpace -= deletedMaterial.quantity * deletedMaterial.spaceRequired;
+            cout << "Àç·á°¡ ¼º°øÀûÀ¸·Î »èÁ¦µÇ¾ú½À´Ï´Ù.\n";
+        } 
+        else {
+            cout << "ÇØ´ç ÀÌ¸§ÀÇ Àç·á¸¦ Ã£À» ¼ö ¾ø½À´Ï´Ù.\n";
+        }
+    }
+
+    void displayFinalOrder() {
+        cout << "\n===== ÃÖÁ¾ ¹ßÁÖ ±â·Ï =====\n";
+        orderList.displayMaterials();
+        cout << "ÃÑ ¹ßÁÖ ºñ¿ë: " << totalCost << " ¿ø\n";
+        cout << "ÃÑ ³ÃÀå°í Â÷Áö °ø°£: " << totalSpace << " / " << refrigeratorCapacity << " ´ÜÀ§\n";
+    }
+
+    void saveFinalOrderToFile() {
+        string fileName;
+        cout << "ÀúÀåÇÒ ÆÄÀÏ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä (È®ÀåÀÚ Æ÷ÇÔ): ";
+        cin >> fileName;
+
+        ofstream file(fileName);
+        if (!file) {
+            cerr << "ÆÄÀÏÀ» »ı¼ºÇÒ ¼ö ¾ø½À´Ï´Ù.\n";
+            return;
+        }
+
+        file << "===== ÃÖÁ¾ ¹ßÁÖ ±â·Ï =====\n";
+        orderList.displayMaterials(file);
+        file << "ÃÑ ¹ßÁÖ ºñ¿ë: " << totalCost << " ¿ø\n";
+        file << "ÃÑ ³ÃÀå°í Â÷Áö °ø°£: " << totalSpace << " / " << refrigeratorCapacity << " ´ÜÀ§\n";
+
+        file.close();
+        cout << "ÃÖÁ¾ ¹ßÁÖ ±â·ÏÀÌ '" << fileName << "' ÆÄÀÏ¿¡ ÀúÀåµÇ¾ú½À´Ï´Ù.\n";
+    }
+};
+
+int main() {
+    POS pos;
+
+    while (true) {
+        int choice;
+        cout << "\nPOS ½Ã½ºÅÛ ¸Ş´º:\n";
+        cout << "1. ³ÃÀå°í ¿ë·® ¼³Á¤\n";
+        cout << "2. Àç·á ¹ßÁÖ Ãß°¡\n";
+        cout << "3. ¹ßÁÖ Ã³¸®\n";
+        cout << "4. Àç·á ¼öÁ¤\n";
+        cout << "5. Àç·á »èÁ¦\n";
+        cout << "6. ÃÖÁ¾ ¹ßÁÖ ±â·Ï º¸±â\n";
+        cout << "7. ÃÖÁ¾ ¹ßÁÖ ±â·Ï ÀúÀå\n";
+        cout << "8. Á¾·á\n";
+        cout << "¼±ÅÃ: ";
+
+        cin >> choice;
+
+        if (cin.fail()) {
+            cin.clear();
+            cin.ignore(INT_MAX, '\n');
+            cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.\n";
+            continue;
+        }
+
+        switch (choice) {
+            case 1:
+                pos.setRefrigeratorCapacity();
+                break;
+            case 2:
+                pos.inputMaterial();
+                break;
+            case 3:
+                pos.processOrders();
+                break;
+            case 4:
+                pos.modifyMaterialInOrderList();
+                break;
+            case 5:
+                pos.deleteMaterialFromOrderList();
+                break;
+            case 6:
+                pos.displayFinalOrder();
+                break;
+            case 7:
+                pos.saveFinalOrderToFile();
+                break;
+            case 8:
+                cout << "½Ã½ºÅÛÀ» Á¾·áÇÕ´Ï´Ù.\n";
+                return 0;
+            default:
+                cout << "Àß¸øµÈ ÀÔ·ÂÀÔ´Ï´Ù. 1~8 »çÀÌÀÇ ¼ıÀÚ¸¦ ÀÔ·ÂÇÏ¼¼¿ä.\n";
+                break;
+        }
+    }
+}
